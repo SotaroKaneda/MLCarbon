@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transformer Model Carbon Emission Estimator</title>
+    <script type="text/javascript" async
+    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ['$','$'] ],
+            displayMath: [ ['$$','$$'] ]
+        }
+        });
+    </script>  
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <h1>Estimating CO2e for Transformer-based LLMs</h1>
+    <p>Below calculation is based on empirical throughput scaling data described in the Megatron LM paper. Megatron uses 8x 80 GB A100 NVLink nodes. Extrapolation to V100 nodes is done basis reported relative compute performance between the two NVIDIA GPUs.</p>
+    <form method="POST" action="/">
+        <div class="section">
+            <h2>Transformer Model</h2>
+            <p>Enter the total number of parameters OR transformer model details</p>
+            <p><ul>
+                <li>Parameters $P = 12lh^2(1+\frac{13}{12h} + \frac{V+s}{12lh})$</li>
+            </ul></p>
+            <div class="form-group">
+                <label for="model_type">Model Type:</label>
+                <select id="model_type" name="model_type" required>
+                    <option value="GPT">GPT</option>
+                    <option value="BERT">BERT</option>
+                    <option value="T5">T5</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="tokens">Training Tokens:</label>
+                <input type="text" id="tokens" name="tokens" value="300e9">
+            </div>
+            <div class="form-group">
+                <label for="V">Vocabulary:</label>
+                <input type="number" id="V" name="V" placeholder="NA" value="51200">
+            </div>
+            <div class="form-group">
+                <label for="s">Sequence Length:</label>
+                <input type="number" id="s" name="s" placeholder="NA" value="2048">
+            </div>
+            <div class="form-group">
+                <label for="h">Hidden States:</label>
+                <input type="number" id="h" name="h" value="0">
+            </div>
+            <div class="form-group">
+                <label for="a">Attention Heads:</label>
+                <input type="number" id="a" name="a" value="0">
+            </div>
+            <div class="form-group">
+                <label for="l">#Layers:</label>
+                <input type="number" id="l" name="l" value="0">
+            </div>
+            <div class="form-group">
+                <label for="parameter">Total Parameters:</label>
+                <input type="text" id="parameter" name="parameter" placeholder="NA" value="175e9">
+            </div>            
+        </div>
+        <div class="right-section">
+            <div class="section">
+                <h2>Hardware</h2>
+                <p><ul>
+                    <li>A100: 40/80GB</li>
+                    <li>V100: 32GB</li>
+                </ul></p>
+                <div class="form-group">
+                    <label for="gpu_type">GPU Type:</label>
+                    <select id="gpu_type" name="gpu_type" required>
+                        <option value="A100" selected>A100</option>
+                        <option value="V100">V100</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="node_size">Node Size:</label>
+                    <select id="node_size" name="node_size" required>
+                        <option value="4">4</option>
+                        <option value="8" selected>8</option>                    
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="gpu_mem">GPU Memory:</label>
+                    <select id="gpu_mem" name="gpu_mem" required>
+                        <option value="40">40GB</option>
+                        <option value="80" selected>80GB</option>
+                        <option value="32">32GB</option>
+                    </select>
+                </div>
+            </div>
+            <div class="carbon-container">
+                <h2>Carbon Emission</h2>
+                <p><ul>
+                    <li>Net CO2e/kWh 2020: 0.429</li>
+                </ul></p>
+                <div class="form-group">
+                    <label for="datacenter_co2">Datacenter Gross CO2 e /KWh:</label>
+                    <input type="number" id="datacenter_co2" name="datacenter_co2" value="0.429" required>
+                </div>
+                <div class="form-group">
+                    <label for="pue">PUE:</label>
+                    <input type="number" id="pue" name="pue" value="1.1" required>
+                </div>
+            </div>
+        </div>
+        <button type="submit">Compute</button>
+    </form>
+</body>
+</html>

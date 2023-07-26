@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transformer Model Carbon Emission Estimator - Results</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Results</h1>
+
+    <div class="section">
+        <h2>Suggested Megatron Configuration</h2>
+        <p>Estimated Number of GPUs: {{ num_gpu }}</p>
+        <p>Pipeline Size: {{ p_size }}</p>
+        <p>Tensor Size: {{ t_size }}</p>
+        <p>Data Size: {{ d_size }}</p>
+        <p>Estimated Batch Size: {{ batch_size }}</p>
+    </div>
+
+    <div class="section">
+        <h2>Computation</h2>
+        <p>Total Compute Required: {{ "{:.2e}".format(total_compute) }} FLOPs</p>
+        <p>Estimated Throughput: {{ "{:.2f}".format(X) }} TFLOPs</p>
+        <p>Percent Peak: {{ "{:.1f}".format((X/gpu_peak)*100) }} %</p>
+    </div>
+
+    <div class="section">
+        <h2>Train Time and CO2e Emissions</h2>
+        <p>Total Train Time: {{ train_day }} days</p>
+        <p>Gross CO2e: {{ "{:.2f}".format(co2e_gross) }} tCO2e</p>
+    </div>
+
+    <a href="/">Back</a>
+
+</body>
+</html>
