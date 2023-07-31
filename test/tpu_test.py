@@ -1,14 +1,20 @@
 import unittest
 import pandas as pd
+import sys
+sys.path.insert(0, '/Users/sotarokaneda/git/MLCarbon')
+from model import Model
+from tpu_training import Tpu_train
 
 class Tpu_test(unittest.TestCase):
-    def test(self):
-        one = 1
-        two = 2
-        self.assertEqual(two - one, 1, "incorrect math")
+    def test_models(self):
+        models_df = pd.read_csv('./data/models.csv')
+        for i in models_df.index:
+            row = models_df.iloc[i]
+            with self.subTest(model = row['Model']):
+                model = Model(row['Number of Parameters (B)'], row['Tokens(trillions)'], row['Percent of model activated on every token'])
+                training = Tpu_train(model, row['Processor'], row['Number of Chips'])
+                energy = row['Energy Consumption (MWh)']
+                error = (training.energy - energy) / energy  
+                self.assertLess(abs(error), 0.5, "more than 50 error")
 
 unittest.main()
-models_df = pd.read_csv('./data/models.csv')
-tokens_t = [0.0099, 0.0099,4.009984,1,10,1.2,0.013924]
-models_df['Tokens(trillions)'] = tokens_t
-models_df.to_csv('models.csv', sep=',', index=False)
