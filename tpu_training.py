@@ -1,6 +1,7 @@
 import csv
 import json
 from model import Model
+import pandas as pd
 
 class Tpu_train:
     def __init__(self, model, version, num_tpu):
@@ -16,14 +17,17 @@ class Tpu_train:
         self.calc_embodied_carbon()
         return
     
+    # tpu flop rate in flop per sec magnitude of E21
     def calc_tpu_flops(self):
-        self.pod_flops = self.num_tpu * self.tpu['power']['max'] * self.tpu['hardware_utilization']
+        self.pod_flops = self.num_tpu * self.tpu['peak TFLOPS'] * self.tpu['hardware_utilization'] / 1000000000
 
     def calc_train_time(self,):
         self.training_seconds = self.model.total_flops / self.pod_flops
 
+    # energy in MWh
     def calc_energy(self,):
-        pod_energy = self.num_tpu * self.tpu['power']['max']
+        # pod_energy in MWs
+        pod_energy = self.num_tpu * self.tpu['power']['mean'] / 1000000
         self.energy = pod_energy * self.get_training_hours()
 
     # assuming tpu lifetime of 5 years
@@ -52,5 +56,9 @@ class Tpu_train:
         return tpu_carbon + cpu_carbon
 
 Meena = Model(2.6, 10)
-tpu = Tpu_train(Meena, 'TPUv3', 1024)
-print(tpu.embodied_carbon)
+train = Tpu_train(Meena, 'TPUv3', 1024)
+print(train.energy)
+models_df = pd.read_csv('./data/models.csv')
+tokens_t = [0.0099, 0.0099,4.009984,1,10,1.2,0.013924, 0]
+models_df.insert(2, 'Tokens(trillions)', tokens_t)
+models_df.to_csv('./data/models.csv', sep=',', index=False)
