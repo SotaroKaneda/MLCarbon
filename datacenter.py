@@ -7,6 +7,3 @@ def calc_co2(region, accelerator_energy):
     region_row = datacenter_df.loc[datacenter_df['region'] == region]
     #impact is gCO2/kWh
     return region_row['impact'].values[0] / 1000 * accelerator_energy
-
-
-calc_co2('asia-east1', 234234)
