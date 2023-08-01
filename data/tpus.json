@@ -9,6 +9,7 @@
         "chip": {"brand": "TSMC", "size": "16nm"},
         "peak TFLOPS":45,
         "power":{"min": 123, "mean": 224, "max": 260},
+        "cpus per tpu": 8,
         "hardware_utilization": 0.51,
         "die size": 6.25
     },

@@ -5,9 +5,9 @@ class Model():
     def __init__(self, parameters_b, tokens_t, percent_activated = 1):
         self.parameters_b = parameters_b
         self.tokens_t = tokens_t
-        self.activated_parameters_b = parameters_b * percent_activated
+        self.activated_parameters_b = parameters_b * percent_activated / 100
         # source for formula https://arxiv.org/pdf/2203.15556.pdf
-        self.total_flops = 6 * parameters_b * tokens_t
+        self.total_flops = 6 * self.activated_parameters_b * tokens_t
         return
     
     # update the size and test loss after sparseGPT unstructured 50% pruning
