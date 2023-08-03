@@ -8,10 +8,16 @@ import numpy as np
 
 
 class Gpu_test(unittest.TestCase):
+
     def test_GPT_on_8x_80GB_A100(self):
         gpt_model = Model(175, 0.3)
         training = Gpu_train(gpt_model, 'A100', 1, 8)
         original_energy = 156
         self.assertEqual(original_energy, np.ceil(training.total_energy), "doesn't match original analysis")
 
+    def test_GPT_on_8x_32GB_V100(self):
+        gpt_model = Model(175, 0.3)
+        training = Gpu_train(gpt_model, 'V100', 1, 8)
+        original_energy = 158
+        self.assertEqual(original_energy, np.ceil(training.total_energy), "doesn't match original analysis")
 unittest.main()

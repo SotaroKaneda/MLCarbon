@@ -80,9 +80,8 @@ class Gpu_train(Training):
         self.total_energy = self.gpu['tdp'] * self.get_training_hours()
         
 gpt_model = Model(175, 0.3)
-training = Gpu_train(gpt_model, 'A100', 1, 8)
+training = Gpu_train(gpt_model, 'V100', 1, 8)
 print(training.model.total_tflops)
 print(training.throughput)
 print(training.num_gpu)
 print(training.get_training_days())
-original_energy = 155978.0
