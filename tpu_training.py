@@ -1,10 +1,12 @@
 import csv
 import json
 from model import Model
+from training import Training
 import pandas as pd
 
-class Tpu_train:
+class Tpu_train(Training):
     def __init__(self, model, version, num_tpu):
+        super().__init__()
         # load tpu info
         with open('data/tpus.json') as tpu_file:
             tpus = json.load(tpu_file)
@@ -19,10 +21,8 @@ class Tpu_train:
     
     # tpu flop rate in flop per sec magnitude of E21
     def calc_tpu_flops(self):
-        self.pod_flops = self.num_tpu * self.tpu['peak TFLOPS'] * self.tpu['hardware_utilization'] / 1000000000
+        self.flop_per_sec = self.num_tpu * self.tpu['peak TFLOPS'] * self.tpu['hardware_utilization'] / 1000000000
 
-    def calc_train_time(self,):
-        self.training_seconds = self.model.total_flops / self.pod_flops
 
     # energy in MWh
     def calc_energy(self,):
@@ -34,12 +34,7 @@ class Tpu_train:
     def calc_embodied_carbon(self):
         self.embodied_carbon = self.get_pod_embodied() * self.get_training_hours() / (5 * 365 * 24)
 
-    def get_training_hours(self):
-        return self.training_seconds/ 60/ 60
-    
-    def get_training_days(self):
-        return self.training_seconds/ 60/ 60/ 24
-    
+       
     def get_(self):
         return self
     
