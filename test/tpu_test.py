@@ -14,8 +14,6 @@ class Tpu_test(unittest.TestCase):
             with self.subTest(model = row['Model']):
                 model = Model(row['Number of Parameters (B)'], row['Tokens(trillions)'], row['Percent of model activated on every token'])
                 training = Tpu_train(model, row['Processor'], row['Number of Chips'])
-                print(training.model.total_tflops)
-                print(training.tflop_per_sec)
                 energy = row['Energy Consumption (MWh)']
                 error = (training.total_energy - energy) / energy  
                 self.assertLess(abs(error), 0.5, "more than 50 error")
