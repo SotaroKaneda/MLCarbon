@@ -5,7 +5,7 @@ class Training:
         return
     
     def calc_train_time(self,):
-        self.training_seconds = self.model.total_flops / self.flop_per_sec
+        self.training_seconds = self.model.total_tflops / self.tflop_per_sec
     def get_training_hours(self):
         return self.training_seconds/ 60/ 60
     

@@ -1,4 +1,5 @@
 import csv
+
 import json
 from model import Model
 from training import Training
@@ -6,7 +7,7 @@ import pandas as pd
 import numpy as np
 
 class Gpu_train(Training):
-    def __init__(self, model, gpu, num_gpu = 1, node_size):
+    def __init__(self, model, gpu, num_gpu = 1, node_size = 1):
         super().__init__()
         gpu_df = pd.read_csv('./data/impact.csv')
         self.model = model
@@ -15,6 +16,10 @@ class Gpu_train(Training):
         self.gpu = gpus[gpu]
         self.num_gpu = num_gpu
         self.node_size = node_size
+        self.get_ptd()
+        self.get_throughput()
+        self.calc_train_time()
+        self.calc_energy()
         return
     
 
@@ -57,10 +62,10 @@ class Gpu_train(Training):
         rel_thru = 7.76 / 33.46
         #intra model condition
         if (self.t_size <= self.node_size and self.p_size == 1):
-            X = func_tensor(self.model.parameter_b * 1e9)
+            X = func_tensor(self.model.parameters_b * 1e9)
         # inter model
         else:
-            X = func_pipe(self.model.parameter_b * 1e9)
+            X = func_pipe(self.model.parameters_b * 1e9)
 
         if self.gpu['memory'] != 80:
             X_new = X -  X*rel_thru
@@ -68,4 +73,16 @@ class Gpu_train(Training):
             self.throughput= peak_new*125
         else:
             self.throughput = X
-        return 
+        self.tflop_per_sec = self.num_gpu * self.throughput
+        return
+
+    def calc_energy(self):
+        self.total_energy = self.gpu['tdp'] * self.get_training_hours()
+        
+gpt_model = Model(175, 0.3)
+training = Gpu_train(gpt_model, 'V100', 1, 8)
+print(training.model.total_tflops)
+print(training.throughput)
+print(training.num_gpu)
+print(training.get_training_days())
+original_energy = 155978.0

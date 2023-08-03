@@ -13,30 +13,26 @@ class Tpu_train(Training):
         self.model = model
         self.tpu = tpus[version]
         self.num_tpu = num_tpu
-        self.calc_tpu_flops()
+        self.calc_tpu_tflops()
         self.calc_train_time()
         self.calc_energy()
         self.calc_embodied_carbon()
         return
     
     # tpu flop rate in flop per sec magnitude of E21
-    def calc_tpu_flops(self):
-        self.flop_per_sec = self.num_tpu * self.tpu['peak TFLOPS'] * self.tpu['hardware_utilization'] / 1000000000
-
+    def calc_tpu_tflops(self):
+        # divide by billion to match units
+        self.tflop_per_sec = self.num_tpu * self.tpu['peak TFLOPS'] * self.tpu['hardware_utilization']
 
     # energy in MWh
     def calc_energy(self,):
         # pod_energy in MWs
-        pod_energy = self.num_tpu * self.tpu['power']['mean'] / 1000000
-        self.energy = pod_energy * self.get_training_hours()
+        pod_energy = self.num_tpu * self.tpu['power']['mean'] / 1e6
+        self.total_energy = pod_energy * self.get_training_hours()
 
     # assuming tpu lifetime of 5 years
     def calc_embodied_carbon(self):
         self.embodied_carbon = self.get_pod_embodied() * self.get_training_hours() / (5 * 365 * 24)
-
-       
-    def get_(self):
-        return self
     
     def get_pod_embodied(self,):
         with open('data/transistors.json') as chip_file:

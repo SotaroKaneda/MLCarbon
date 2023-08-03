@@ -2,12 +2,13 @@ import json
 import csv
 import numpy as np
 class Model():
-    def __init__(self, parameters_b, tokens_t, percent_activated = 1):
+    def __init__(self, parameters_b, tokens_t, percent_activated = 100):
         self.parameters_b = parameters_b
         self.tokens_t = tokens_t
         self.activated_parameters_b = parameters_b * percent_activated / 100
         # source for formula https://arxiv.org/pdf/2203.15556.pdf
-        self.total_flops = 6 * self.activated_parameters_b * tokens_t
+        # in units of 1e9 * 1e12 = 1e21
+        self.total_tflops = 6 * self.activated_parameters_b * tokens_t * 1e9
         return
     
     # update the size and test loss after sparseGPT unstructured 50% pruning
