@@ -18,4 +18,7 @@ class Tpu_test(unittest.TestCase):
                 error = (training.total_energy - energy) / energy  
                 self.assertLess(abs(error), 0.5, "more than 50 error")
 
+
+    
+
 unittest.main()

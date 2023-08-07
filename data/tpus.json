@@ -14,13 +14,13 @@
         "die size": 6.25
     },
     "TPU v3":{
-        "TDP": 200,
+        "TDP": 450,
         "TFLOPS": 300,
         "chip": {"brand": "TSMC", "size": "16nm"},
         "peak TFLOPS": 123,
         "power":{"min": 123, "mean": 220, "max": 260},
         "cpus per tpu": 8,
-        "hardware_utilization": 0.325,
+        "hardware_utilization": 0.37,
         "die size": 7
     },
     "TPU v4":{

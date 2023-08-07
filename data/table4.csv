@@ -1,0 +1,20 @@
+LLM, T5, GPT3, XLM
+developer, Google, OpenAI, Meta
+param. # (B), 11, 175, 0.55
+token # (B), 500, 300, 6K
+C02 e/KWh, 0.545, 0.429, 0.413
+PUE, 1.12, 1.1, 1.1
+device, TPUv3, V100, V100
+device TDP (W), 450, 300, 300
+avg. power (W), 310, 330, 342
+peak TFLOPs/s, 123, 125, 125
+actual TFLOPs/s, 45.6, 24.6, 26.5
+hardware eff., 37%, 19.70%, 21.20%
+chip #, 512, 10K, 512
+total FLOPs, 4.05E+22, 3.14E+23, 2.39+22
+predicted FLOPs, 3.80E+22, 3.60E+23, 2.28E+22
+training days, 20, 14.8, 20.4
+predicted days, 18.8, 17.1, 19.44
+tC02 e, 46.7, 552.1, 39
+predicted tC02 e, 43.9, 638.8, 37.18
+Error, -6.06%, 15.70%, -4.67%
