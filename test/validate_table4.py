@@ -30,7 +30,7 @@ class validate_table4(unittest.TestCase):
             # validate if Carbon emissions match
             with self.subTest('Validate Carbon', model = row['LLM']):
                 training.calc_energy()
-                error = abs(training.get_co2(row['C02 e/KWh'])- row['predicted tC02 e']) / row['predicted tC02 e'] * 100
+                error = abs(training.get_co2(row['PUE'], row['C02 e/KWh'])- row['predicted tC02 e']) / row['predicted tC02 e'] * 100
                 self.assertLess(error, 10, f'Prediction of Operating Emissions of {row["LLM"]} is off by {error}%')
     
 unittest.main()

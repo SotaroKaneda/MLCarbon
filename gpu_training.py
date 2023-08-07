@@ -2,11 +2,10 @@ import csv
 
 import json
 from model import Model
-from training import Training
 import pandas as pd
 import numpy as np
 
-class Gpu_train(Training):
+class Gpu_train():
     def __init__(self, model, gpu, num_gpu = 1, node_size = 1):
         super().__init__()
         gpu_df = pd.read_csv('./data/impact.csv')
