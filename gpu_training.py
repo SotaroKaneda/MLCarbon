@@ -76,6 +76,8 @@ class Gpu_train(Training):
         self.tflop_per_sec = self.num_gpu * self.throughput
         return
 
+    # returns energy in units of kWh
     def calc_energy(self):
+        # take tdp in kWh
         self.total_energy = self.gpu['tdp'] * self.get_training_hours()
         

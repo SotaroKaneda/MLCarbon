@@ -1,20 +1,4 @@
-LLM, T5, GPT3, XLM
-developer, Google, OpenAI, Meta
-param. # (B), 11, 175, 0.55
-token # (B), 500, 300, 6K
-C02 e/KWh, 0.545, 0.429, 0.413
-PUE, 1.12, 1.1, 1.1
-device, TPUv3, V100, V100
-device TDP (W), 450, 300, 300
-avg. power (W), 310, 330, 342
-peak TFLOPs/s, 123, 125, 125
-actual TFLOPs/s, 45.6, 24.6, 26.5
-hardware eff., 37%, 19.70%, 21.20%
-chip #, 512, 10K, 512
-total FLOPs, 4.05E+22, 3.14E+23, 2.39+22
-predicted FLOPs, 3.80E+22, 3.60E+23, 2.28E+22
-training days, 20, 14.8, 20.4
-predicted days, 18.8, 17.1, 19.44
-tC02 e, 46.7, 552.1, 39
-predicted tC02 e, 43.9, 638.8, 37.18
-Error, -6.06%, 15.70%, -4.67%
+LLM,developer,param. # (B),token # (B),C02 e/KWh,PUE,device,device TDP (W),avg. power (W),peak TFLOPs/s,actual TFLOPs/s,hardware eff.,chip #,total FLOPs,predicted FLOPs,training days,predicted days,tC02 e,predicted tC02 e,Error
+T5,Google,11,500,0.545,1.12,TPUv3,450,310,123,45.6,37,512,4.05E+22,3.80E+22,20,18.8,46.7,43.9,-6.06
+GPT3,OpenAI,175,300,0.429,1.1,V100,300,330,125,24.6,19.70,10000,3.14E+23,3.60E+23,14.8,17.1,552.1,638.8,15.70
+XLM,Meta,0.55,6000,0.413,1.1,V100,300,342,125,26.5,21.20,512,2.39+22,2.28E+22,20.4,19.44,39,37.18,-4.67

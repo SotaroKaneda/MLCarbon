@@ -3,7 +3,7 @@
         "TDP": 100,
         "TFLOPS": 200
     },
-    "TPU v2":{
+    "TPUv2":{
         "TDP": 100,
         "TFLOPS": 200,
         "chip": {"brand": "TSMC", "size": "16nm"},
@@ -13,22 +13,32 @@
         "hardware_utilization": 0.51,
         "die size": 6.25
     },
-    "TPU v3":{
+    "TPUv3":{
         "TDP": 450,
         "TFLOPS": 300,
         "chip": {"brand": "TSMC", "size": "16nm"},
         "peak TFLOPS": 123,
-        "power":{"min": 123, "mean": 220, "max": 260},
+        "power":{"min": 123, "mean": 310, "max": 260},
         "cpus per tpu": 8,
         "hardware_utilization": 0.37,
         "die size": 7
     },
-    "TPU v4":{
+    "TPUv4":{
         "chip": {"brand": "TSMC", "size": "7nm"},
         "peak TFLOPS":  275,
         "power":    {"min": 90, "mean": 170, "max": 192},
         "cpus per tpu": 4,
         "hardware_utilization": 0.578
-
+    },
+    "A100":{
+        "TDP": 0.4,
+        "peak TFLOPS": 312,
+        "memory": 80
+    },
+    "V100":{
+        "TDP": 300,
+        "peak TFLOPS": 125,
+        "power":{"min":0, "mean": 330, "max": 0}
     }
+
 }
