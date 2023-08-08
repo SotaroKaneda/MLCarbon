@@ -5,10 +5,10 @@ import sys
 sys.path.insert(0, '/Users/sotarokaneda/git/MLCarbon')
 from model import Model
 from tpu_training import Tpu_train
-import datacenter
+from datacenter import co2_oper, co2_emb
 # Validates 3 values in Table 4, total flops, training days, carbon emission
-class validate_table4(unittest.TestCase):
-    def test_CO2(self):
+class validate_tables(unittest.TestCase):
+    def test_table_4(self):
         df4 = pd.read_csv('./data/table4.csv')
         for i in df4.index:
             row = df4.iloc[i]
@@ -30,7 +30,22 @@ class validate_table4(unittest.TestCase):
             # validate if Carbon emissions match
             with self.subTest('Validate Carbon', model = row['LLM']):
                 training.calc_energy()
-                error = abs(training.get_co2(row['PUE'], row['C02 e/KWh'])- row['predicted tC02 e']) / row['predicted tC02 e'] * 100
+                co2 = co2_oper(row['C02 e/KWh'] * 1000, training.total_energy * row['PUE'])
+                error = abs(co2- row['predicted tC02 e']) / row['predicted tC02 e'] * 100
                 self.assertLess(error, 10, f'Prediction of Operating Emissions of {row["LLM"]} is off by {error}%')
+    
+    # validate time/ lifetime and CO2 emb
+    def test_table_5(self):
+        training_days = 20.4275
+        df5 = pd.read_csv('./data/table5.csv')
+        hardware = {}
+        for i in df5.index:
+            row = df5.iloc[i]
+            hardware[row['hardware']] = row['number']
+        emb = co2_emb(hardware, training_days)
+        error = abs(emb - 0.66)/ 0.66 * 100
+        self.assertLess(error, 3, f'Prediction of Embodied Carbon of XLM is off by {error}%')
+
+
     
 unittest.main()

@@ -1,0 +1,5 @@
+hardware,C02e-chip (kgC02e),number,time lifetime,C02e emb (tCGe)
+V100,9.78,512,1.12%,0.056
+CPU,1.47,64,1.12%,0.0011
+SSD,768,64,1.12%,0.55
+DRAM,102.4,64,1.12%,0.073

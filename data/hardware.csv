@@ -1,7 +1,7 @@
 hardware,description,unit,CPA,CO2e_chip(kgCO2e)
 CPU,TSMC 16nm,147 mm2,1 kgC02/cm2,1.47
-DRAM,Micron 18nm,256 GB,0.024 kgC02/GB,102.4
-SSD,Samsung 20nm,32 TB,0.4 kgC02/GB,736
+DRAM,Micron 18nm,256 GB,0.4 kgC02/GB,102.4
+SSD,Samsung 20nm,32 TB,0.024 kgC02/GB,768
 TPUv3,TSMC 16nm,700 mm2,1 kgC02/cm2,7
 TPUv4,TSMC 7nm,400 mm2,1.6 kgC02/cm2,6.4
 V100,TSMC 12nm,815 mm2,1.2 kgC02/cm2,9.78
