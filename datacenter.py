@@ -8,11 +8,10 @@ def co2_oper(impact, accelerator_energy):
     return impact / 1000 * accelerator_energy
 
 # give a dictionary of name of device and the number
-def co2_emb(devices, training_days):
+def co2_emb(device, num, training_days):
   df = pd.read_csv('./data/hardware.csv')
   embodied_carbon = 0
-  for d in devices:
-    embodied_carbon += devices[d] * df.loc[df['hardware'] == d]['CO2e_chip(kgCO2e)'].values[0]
+  embodied_carbon += num * df.loc[df['hardware'] == device]['CO2e_chip(kgCO2e)'].values[0]
     #print(devices[d] * df.loc[df['hardware'] == d]['CO2e_chip(kgCO2e)'].values[0] / 1000)
   lifetime = 365 * 5
   return training_days / lifetime * embodied_carbon / 1000

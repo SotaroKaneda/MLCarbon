@@ -39,11 +39,10 @@ class validate_tables(unittest.TestCase):
     def test_table_5(self):
         training_days = 20.4275
         df5 = pd.read_csv('./data/table5.csv')
-        hardware = {}
+        emb = 0
         for i in df5.index:
             row = df5.iloc[i]
-            hardware[row['hardware']] = row['number']
-        emb = co2_emb(hardware, training_days)
+            emb += co2_emb(row['hardware'], row['number'], training_days)
         error = abs(emb - 0.66)/ 0.66 * 100
         self.assertLess(error, 3, f'Prediction of Embodied Carbon of XLM is off by {error}%')
 
