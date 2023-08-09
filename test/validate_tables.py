@@ -4,8 +4,9 @@ import pandas as pd
 import sys
 sys.path.insert(0, '/Users/sotarokaneda/git/MLCarbon')
 from model import Model
-from tpu_training import Tpu_train
+from training import Training
 from datacenter import co2_oper, co2_emb
+
 # Validates 3 values in Table 4, total flops, training days, carbon emission
 class validate_tables(unittest.TestCase):
     def test_table_4(self):
@@ -21,7 +22,7 @@ class validate_tables(unittest.TestCase):
 
             # validate if training time match
             with self.subTest('Validate Training Days', model = row['LLM']):
-                training = Tpu_train(model, row['device'], row['chip #'])
+                training = Training(model, row['device'], row['chip #'])
                 training.calc_tflops(row['hardware eff.'] / 100)
                 training.calc_train_time()
                 error = abs(training.get_training_days() - row['predicted days']) / row['predicted days'] * 100

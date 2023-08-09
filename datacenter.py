@@ -28,10 +28,10 @@ def get_pod_embodied(self,):
     with open('data/transistors.json') as chip_file:
         chips = json.load(chip_file)
     #  Carbon emitted Per unit Area
-    brand = self.tpu['chip']['brand']
-    size = self.tpu['chip']['size']
-    tpu_carbon = self.num * self.tpu['die size'] * chips[brand][size]
+    brand = self.accelerator['chip']['brand']
+    size = self.accelerator['chip']['size']
+    tpu_carbon = self.num * self.accelerator['die size'] * chips[brand][size]
 
-    num_cpu = self.num/ self.tpu['cpus per tpu']
+    num_cpu = self.num/ self.accelerator['cpus per tpu']
     cpu_carbon = num_cpu * 0.7 * chips['TSMC']['7nm']
     return tpu_carbon + cpu_carbon

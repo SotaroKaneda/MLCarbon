@@ -11,11 +11,11 @@ class Model_test(unittest.TestCase):
         for i in models_df.index:
             row = models_df.iloc[i]
             with self.subTest(model = row['Model']): 
+                print(f'TESTING: Total TFLOPs estimates for {row["Model"]}')
                 model = Model(row['Number of Parameters (B)'], row['Tokens(trillions)'], row['Percent of model activated on every token'])
                 total_flops = row['Total Computation (TFLOP)']
-                print(total_flops)
-                print(model.total_tflops)
                 error = (total_flops - model.total_tflops) / total_flops
                 self.assertLess(abs(error), 1, "more than 100 percent error")
+                print('SUCCESS\n')
 
 unittest.main()
