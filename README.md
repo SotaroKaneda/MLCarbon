@@ -22,7 +22,8 @@ To test Embodied Carbon predictions
 ```
 python3 test/validate_tables.py
 ```
-
+## Megatron LM Regression Analysis
+![alt text](https://github.com/SotaroKaneda/MLCarbon/blob/main/img/ml_para_set_1.jpg)
 ## References
 
 Acun, B.; Lee, B.; Kazhamiaka, F.; Maeng, K.; Gupta, U.;
