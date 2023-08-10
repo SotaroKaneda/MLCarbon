@@ -31,8 +31,8 @@ class validate_tables(unittest.TestCase):
             # validate if Carbon emissions match
             with self.subTest('Validate Carbon', model = row['LLM']):
                 training.calc_energy()
-                co2 = co2_oper(row['C02 e/KWh'] * 1000, training.total_energy * row['PUE'])
-                error = abs(co2- row['predicted tC02 e']) / row['predicted tC02 e'] * 100
+                co2_t = co2_oper(row['C02 e/KWh'], training.total_energy * row['PUE']) * 1000
+                error = abs(co2_t- row['predicted tC02 e']) / row['predicted tC02 e'] * 100
                 self.assertLess(error, 10, f'Prediction of Operating Emissions of {row["LLM"]} is off by {error}%')
     
     # validate time/ lifetime and CO2 emb
