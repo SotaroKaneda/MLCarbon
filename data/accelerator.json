@@ -22,7 +22,7 @@
         "TFLOPS": 300,
         "chip": {"brand": "TSMC", "size": "16nm"},
         "peak TFLOPS": 123,
-        "power":{"min": 123, "mean": 310, "max": 260},
+        "power":{"min": 123, "mean": 220, "max": 260},
         "tpus per cpu": 8,
         "hardware_utilization": 0.37,
         "die size": 7,
@@ -32,7 +32,7 @@
         "chip": {"brand": "TSMC", "size": "7nm"},
         "peak TFLOPS":  275,
         "power":    {"min": 90, "mean": 170, "max": 192},
-        "tpus per cpu": 4,
+        "cpus per tpu": 4,
         "hardware_utilization": 0.578,
         "memory": 32
     },

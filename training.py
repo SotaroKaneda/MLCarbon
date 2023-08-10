@@ -37,12 +37,8 @@ class Training():
     def calc_energy(self,):
         # pod_energy in MWs
         cluster_energy = self.num * self.accelerator['power']['mean'] / 1e6
+        print(cluster_energy)
         self.total_energy = cluster_energy * self.get_training_hours()
-
-    # units of kg/kWh
-    def get_co2(self, pue, carbon_rate):
-        return self.total_energy * pue * carbon_rate
-
 
     def predict_num_throughput(self, node_size):
         coeff_gpu = np.array([-2.12910565e-21,  4.39684339e-09,  7.99173057e+02])

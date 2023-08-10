@@ -16,7 +16,7 @@ accelerator_choice = input('Choose acceleraton\n1. GPU\n2. TPU\n')
 
 if accelerator_choice == '1':
     print('Calculating number of GPU and throughput using MegatronLM framework\n')
-    gpu = int(input('Choose a GPU\n1. A100 80GB\n 2. V100 32GB\n')) - 1
+    gpu = int(input('Choose a GPU\n1. A100 80GB\n2. V100 32GB\n')) - 1
     gpus = ['A100', 'V100']
     accelerator = gpus[gpu]
     training = Training(model, accelerator, 0)
@@ -40,7 +40,7 @@ impact = 500
 pue = 1.1
 training.calc_train_time()
 training.calc_energy()
-datacenter_energy = training.get_training_days() * pue
+datacenter_energy = training.total_energy * pue
 operational_carbon = co2_oper(impact, datacenter_energy)
 
 embodied_carbon = 0
@@ -60,9 +60,10 @@ print(f'Number of Parameters: {model_row["Number of Parameters (B)"]} Billion')
 print(f'Number of Tokens: {model_row["Tokens(trillions)"]} Trillion')
 print(f'Training on {training.num} {accelerator}s\n')
 print(f'LLM Training modeling Results')
-print(f'Total Computations: {model.total_tflops}')
+tflops ="{:.2e}".format(model.total_tflops)
+print(f'Total Computations: {tflops} TFLOPS')
 print(f'Total Training days: {training.get_training_days()} days')
-print(f'Total Training Energy: {datacenter_energy} kWh')
+print(f'Total Training Energy: {datacenter_energy} MWh')
 print(f'Total Operational Carbon Emissions: {operational_carbon} tons of CO2')
 if embodied_carbon:
     print(f'Total Embodied Carbon: {embodied_carbon} tons of CO2\n')
