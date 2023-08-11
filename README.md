@@ -2,6 +2,10 @@
 LLMCarbon provides precise predictions of both operational and embodied carbon footprints, enabling effective exploration of the design
 space by considering the trade-off between test loss and carbon footprint. These carbon footprint predictions should be considered before training Large Language Models to ensure responsible and sustainable development.
 
+By L. Jiang, F. Chen, A. Faiz, S. Kaneda
+
+Read our paper LLMCarbon
+
 To use MLCarbon TUI
 ```
 python3 mlcarbon_tui.py
