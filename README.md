@@ -22,8 +22,64 @@ To test Embodied Carbon predictions
 ```
 python3 test/validate_tables.py
 ```
-## Megatron LM Regression Analysis
+## Estimation of CO2 equivalent emissions of tranformer based large language models
+Estimated regression coefficients used for polynomial fit  $\mathbf{y = ax^2 + bx + c} $
+- Tensor model throughput: $$a= -8.82079068\times 10^{-20},  b= 1.68591116\times 10^{-09},  c= 1.33954735\times 10^{+02}$$
+- Pipeline model throughput: $$a= -5.60233749\times 10^{-23},  b= 8.45435587\times 10^{-11},  c= 1.34546129\times 10^{+02}$$
+- Total number of GPUs: $$a= -2.12910565\times 10^{-21},  b= 4.39684339\times 10^{-09},  c=7.99173057\times 10^{+02}$$
+- Batch Size: $$a = -4.29439186\times 10^{-01},  b= 5.21376002\times 10^{+01},  c= 1.43737095\times 10^{+03}$$
+
 ![alt text](https://github.com/SotaroKaneda/MLCarbon/blob/main/img/ml_para_set_1.jpg)
+
+The total train compute can be defined as: $train_{compute} = T.P.f_p$ where <br>
+- $T$: Total Training Tokens
+- $P$: Total Parameters
+- $f_p$: FLOPs required per token per parameter
+    - BERT/GPT: 6 (100% of parameters active for each token)
+    - T5: 3 (50% of parameters active for each token)    
+    
+Megatron scaling has been used for each of GPT, BERT, and T5 models leading to a safe assumtion of throughput behavior showing similar trends across each of the model type given specific hardware configuration.
+
+## CO2e calculation
+Let
+- Total number of parameters: $P$ <br>
+- GPU type: V100/A100 <br>
+- GPU memory: $gpu_{mem}$ <br>
+- Number of GPUs in a single node: $node_{size}$ (restricted to 1,2,4,8)<br>
+- Parameter capacity of a single GPU: $gpu_{cap}$ <br>
+- Parameter capacity of a single node: $node_{cap}$ <br>
+- Estimated total number of GPUs: $n$ <br>
+- Estimated Batch Size: $B$ <br>
+- Estimated tensor size: $tensor$ <br>
+- Estimated pipeline size: $pipe$ <br>
+- Estimated data size: $data$ <br>
+- Estimated throughput: $X$ <br>
+- A100:V100 ratio: $r$ <br>
+- FLOPs per parameter per token: $flop_{token}$ <br>
+- FLOP benchmark GPU: $flop_{bench}$ <br>
+- Total training tokens: $T$ <br>
+- Total train compute: $C_{train}$
+- End-to-end training time: $t_{train}$ <br>
+- Gross CO2e emission estimate: $co2e_{gross}$
+
+
+**__Algorithm__** <br>
+1. Calculate total parameters $ P = 12lh^2(1+\frac{13}{12h} + \frac{V+s}{12lh})$ <br>
+2. Use regression coefficients for estimating number of GPUs $n$ <br>
+3. Use regression coefficients for estimating batch size $B$  <br>
+4. Calculate parameter capacity of a single node $node_{cap} = node_{size}*gpu_{cap}$ <br>
+5. if total parameters($P$) < parameter cap for a single node($node_{cap}$) <br>
+    5.1 Set pipeline size $pipe=1$ and tensor size $tensor = \lceil \frac{P}{gpu_{cap}} \rceil$ <br>
+    5.2 else set pipeline size $pipe=\lceil \frac{P}{node_{cap}} \rceil$ and tensor size $tensor = node_{size}$
+6. Use regression coefficients and p,t,d for estimating throughput $X$ and peak utilization given A100 nodes<br>
+    6.1 Use relative performance ratio to scale to V100 GPU type
+7. Calculate the total training compute $C_{train} = flop_{token} * T * P$ <br>
+8. Calculate total training time $t_{train} = \frac{C_{train}}{n*\text{(percent of peak)}*flop_{bench}}$ <br>
+9. Calculate gross CO2e estimate as <br>
+KWh = Hours to train × Number of Processors × Average Power per Processor × PUE ÷ 1000 <br>
+tCO2e = KWh × kg CO2e per KWh ÷ 1000 <br>
+$\mathbf{co2e_{gross} = n*t_{train}*\text{GPU TDP}*\text{PUE}*\text{Datacenter gross CO2 e /KWh}}$
+
 ## References
 
 Acun, B.; Lee, B.; Kazhamiaka, F.; Maeng, K.; Gupta, U.;
