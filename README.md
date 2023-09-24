@@ -21,11 +21,22 @@ To test Throughput and Energy predictions
 ```
 python3 test/training_test.py
 ```
-To test Embodied Carbon predictions
 
+To test Embodied Carbon predictions
 ```
 python3 test/validate_tables.py
 ```
+
+To verify Embodied Carbon predictions in the paper
+```
+python3 test/Verification_carbon.py
+```
+
+To verify Parameters predictions in the paper
+```
+python3 test/Verification_param.py
+```
+
 ## Estimation of CO2 equivalent emissions of tranformer based large language models
 Estimated regression coefficients used for polynomial fit  $\mathbf{y = ax^2 + bx + c} $
 - Tensor model throughput: $$a= -8.82079068\times 10^{-20},  b= 1.68591116\times 10^{-09},  c= 1.33954735\times 10^{+02}$$
