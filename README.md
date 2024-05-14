@@ -18,6 +18,7 @@ Estimated regression coefficients used for polynomial fit  $\mathbf{y = ax^2 + b
 
 ## Bibtex
 
+```
 @inproceedings{
 faiz2024llmcarbon,
 title={{LLMC}arbon: Modeling the End-to-End Carbon Footprint of Large Language Models},
@@ -26,4 +27,5 @@ booktitle={The Twelfth International Conference on Learning Representations},
 year={2024},
 url={https://openreview.net/forum?id=aIok3ZD9to}
 }
+```
 
