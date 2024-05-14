@@ -1,4 +1,0 @@
-LLM,developer,param. # (B),token # (B),C02 e/KWh,PUE,device,device TDP (W),avg. power (W),peak TFLOPs/s,actual TFLOPs/s,hardware eff.,chip #,total FLOPs,predicted FLOPs,training days,predicted days,tC02 e,predicted tC02 e,Error
-T5,Google,11,500,0.545,1.12,TPUv3,450,310,123,45.6,37,512,4.05E+22,3.80E+22,20,18.8,46.7,43.9,-6.06
-GPT3,OpenAI,175,300,0.429,1.1,V100,300,330,125,24.6,19.70,10000,3.14E+23,3.60E+23,14.8,17.1,552.1,638.8,15.70
-XLM,Meta,0.55,6000,0.413,1.1,V100,300,342,125,26.5,21.20,512,2.39+22,2.28E+22,20.4,19.44,39,37.18,-4.67

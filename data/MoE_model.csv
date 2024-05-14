@@ -1,7 +1,0 @@
-﻿model_name,base_param,MoE,hidden_size,ff_size,head_size,layer_num,expert_num,head_num
-Gshard,2.3,0.5,1024,8192,32,36,2048,32
-Switch,7,1,2048,6144,32,15,2048,64
-GLaM,95,1,8192,32768,128,64,64,128
-FacebookMoE,2.3,1,4096,0,32,32,512,32
-ST-MoE,32,0.25,5120,20480,128,27,64,64
-PR-MoE,1.3,0.5,2048,0,0,24,128,16

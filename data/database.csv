@@ -1,0 +1,6 @@
+name,type,parameter # (B),base model param. # (B),token # (B),CO2eq/KWh,PUE,computing device,device TPD (W),avg. system power (W),peak TFLOPs/s,achieved TFLOPs/s,hardware efficiency,device #,total zettaFLOPs,training days,actual tCO2eq,energy MWh
+T5,dense,11,,600,0.545,1.12,TPUV3,450,310,123,45.6,0.37,512,40.5,20,46.7,85.7
+GPT3,dense,175,,300,0.429,1.1,V100,300,330,125,24.6,0.197,10000,314,14.8,552.1,1287
+Gshard,MoE,619,2.3,1000,0.177,1.09,TPUV3,450,288,123,48,0.39,1000,13.3,3.1,4.3,24.1
+Switch,MoE,1500,7.41,2000,0.33,1.1,TPUV3,450,245,123,34.4,0.28,1000,82.2,27,59.1,179
+XLM,dense,0.55,,7000,0.413,1.1,V100,300,342,125,26.5,0.212,512,23.9,20.4,39,94.4

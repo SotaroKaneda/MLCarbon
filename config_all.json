@@ -1,0 +1,4 @@
+{
+    "database": "./data/database.csv",
+    "hardware": "./data/hardware.csv"
+}
